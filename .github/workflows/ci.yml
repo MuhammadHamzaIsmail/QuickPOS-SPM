@@ -33,14 +33,18 @@ jobs:
 
       - name: Stage 10 - Validate Jira Commit Message
         run: |
-          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            COMMIT_MSG="${{ github.event.pull_request.title }}"
+          else
+            COMMIT_MSG="${{ github.event.head_commit.message }}"
+          fi
           echo "Commit message: $COMMIT_MSG"
           if [[ ! "$COMMIT_MSG" =~ \[POS-[0-9]+\] ]]; then
             echo "ERROR: Commit must contain Jira ID like [POS-101]"
             exit 1
           fi
           echo "Commit message is valid."
-          
+
   automated-tests:
     name: Automated PHPUnit Tests
     runs-on: ubuntu-latest
