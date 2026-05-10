@@ -8,9 +8,9 @@
 <body>
 <div class="thankyou-page">
     <div class="thankyou-box">
-        <h1>✅ Thank You!</h1>
+        <h1>Thank You!</h1>
         <p>Your message has been received. We will get back to you shortly.</p>
-        <a href="index.php" class="btn-primary">← Back to Home</a>
+        <a href="index.php" class="btn-primary">Back to Home</a>
     </div>
 </div>
 </body>

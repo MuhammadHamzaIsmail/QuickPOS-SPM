@@ -28,10 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- EPIC 1: HEADER -->
 <header id="header">
     <div class="container nav-container">
-        <div class="logo">⚡ QuickPOS</div>
+        <div class="logo">&#9889; QuickPOS</div>
         <nav>
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </header>
 
-<!-- HERO -->
+<!-- EPIC 2: HERO SECTION -->
 <section id="hero">
     <div class="container hero-content">
         <h1>The Fastest POS System for Modern Businesses</h1>
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </section>
 
-<!-- FEATURES -->
+<!-- EPIC 3: FEATURES SECTION -->
 <section id="features">
     <div class="container">
         <h2>Why Choose QuickPOS?</h2>
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </section>
 
-<!-- PRICING -->
+<!-- EPIC 4: PRICING SECTION -->
 <section id="pricing">
     <div class="container">
         <h2>Simple, Transparent Pricing</h2>
@@ -119,14 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </section>
 
-<!-- CONTACT -->
+<!-- EPIC 5: CONTACT FORM -->
 <section id="contact">
     <div class="container">
         <h2>Get In Touch</h2>
         <?php if (!empty($errors)): ?>
             <div class="error-box">
                 <?php foreach ($errors as $e): ?>
-                    <p>❌ <?= htmlspecialchars($e) ?></p>
+                    <p><?= htmlspecialchars($e) ?></p>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
@@ -142,10 +142,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </section>
 
-<!-- FOOTER -->
+<!-- EPIC 6: FOOTER -->
 <footer id="footer">
     <div class="container footer-content">
-        <div class="logo">⚡ QuickPOS</div>
+        <div class="logo">&#9889; QuickPOS</div>
         <div class="social-links">
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
