@@ -1,0 +1,79 @@
+name: QuickPOS CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'bugfix/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  code-quality:
+    name: Code Quality and Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Stage 1 - Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Stage 3 - PHP Syntax Check All Files
+        run: |
+          find . -name "*.php" -not -path "./vendor/*" | while read file; do
+            php -l "$file" || exit 1
+          done
+          echo "All PHP files passed syntax check."
+
+      - name: Stage 10 - Validate Jira Commit Message
+        if: github.event_name == 'push'
+        run: |
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          echo "Commit message: $COMMIT_MSG"
+          if [[ ! "$COMMIT_MSG" =~ \[POS-[0-9]+\] ]]; then
+            echo "ERROR: Commit must contain Jira ID like [POS-101]"
+            exit 1
+          fi
+          echo "Commit message is valid."
+
+  automated-tests:
+    name: Automated PHPUnit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Stage 1 - Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Stage 2 - Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Stage 4 - Run PHPUnit Tests
+        run: ./vendor/bin/phpunit tests/ --testdox
+
+      - name: Stage 6 - Upload Test Results as Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: tests/
+
+  merge-gate:
+    name: PR Merge Gate
+    runs-on: ubuntu-latest
+    needs: [code-quality, automated-tests]
+
+    steps:
+      - name: Stage 8 - All checks passed safe to merge
+        run: echo "All checks passed. PR is approved for merge."
