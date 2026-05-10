@@ -52,10 +52,10 @@ class ContactFormTest extends TestCase
             $errors[] = "Message required";
         }
 
-        $this->assertEmpty($errors, 'No errors should occur when all fields are valid');
+        $this->assertEmpty($errors, 'No errors when all fields are valid');
     }
 
-    // [POS-75] Data-driven test multiple invalid emails
+    // [POS-75] Data-driven multiple invalid emails
     public function testMultipleInvalidEmailFormats(): void
     {
         $invalidEmails = [
@@ -67,7 +67,7 @@ class ContactFormTest extends TestCase
         ];
         foreach ($invalidEmails as $email) {
             $isValid = filter_var($email, FILTER_VALIDATE_EMAIL);
-            $this->assertFalse($isValid, "Email '$email' should fail validation");
+            $this->assertFalse($isValid, "Email " . $email . " should fail validation");
         }
     }
 
