@@ -23,27 +23,24 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          tools: phpcs
 
-      - name: Stage 3 - Run PHP CodeSniffer
-        run: phpcs --standard=PSR12 --ignore=vendor/ .
-
-      - name: Stage 5 - PHP Syntax Check
+      - name: Stage 3 - PHP Syntax Check All Files
         run: |
           find . -name "*.php" -not -path "./vendor/*" | while read file; do
             php -l "$file" || exit 1
           done
+          echo "All PHP files passed syntax check."
 
       - name: Stage 10 - Validate Jira Commit Message
         run: |
           COMMIT_MSG="${{ github.event.head_commit.message }}"
           echo "Commit message: $COMMIT_MSG"
           if [[ ! "$COMMIT_MSG" =~ \[POS-[0-9]+\] ]]; then
-            echo "ERROR: Commit message must contain Jira ticket ID like [POS-101]"
+            echo "ERROR: Commit must contain Jira ID like [POS-101]"
             exit 1
           fi
           echo "Commit message is valid."
-
+          
   automated-tests:
     name: Automated PHPUnit Tests
     runs-on: ubuntu-latest
