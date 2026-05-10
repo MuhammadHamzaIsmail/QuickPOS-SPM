@@ -32,12 +32,9 @@ jobs:
           echo "All PHP files passed syntax check."
 
       - name: Stage 10 - Validate Jira Commit Message
+        if: github.event_name == 'push'
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            COMMIT_MSG="${{ github.event.pull_request.title }}"
-          else
-            COMMIT_MSG="${{ github.event.head_commit.message }}"
-          fi
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
           echo "Commit message: $COMMIT_MSG"
           if [[ ! "$COMMIT_MSG" =~ \[POS-[0-9]+\] ]]; then
             echo "ERROR: Commit must contain Jira ID like [POS-101]"
