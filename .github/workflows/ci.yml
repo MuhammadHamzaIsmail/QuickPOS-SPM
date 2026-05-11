@@ -23,16 +23,18 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+          tools: phpcs
 
-      - name: Stage 3 - PHP Syntax Check All Files
+      - name: Stage 3 - Run PHP CodeSniffer
+        run: phpcs --standard=PSR12 --ignore=vendor/ .
+
+      - name: Stage 5 - PHP Syntax Check
         run: |
           find . -name "*.php" -not -path "./vendor/*" | while read file; do
             php -l "$file" || exit 1
           done
-          echo "All PHP files passed syntax check."
 
       - name: Stage 10 - Validate Jira Commit Message
-        if: github.event_name == 'push'
         run: |
           COMMIT_MSG="${{ github.event.head_commit.message }}"
           echo "Commit message: $COMMIT_MSG"
@@ -76,4 +78,4 @@ jobs:
 
     steps:
       - name: Stage 8 - All checks passed safe to merge
-        run: echo "All checks passed. PR is approved for merge."
+        run: echo "All checks passed. PR approved for merge."
