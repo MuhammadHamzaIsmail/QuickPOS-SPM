@@ -76,4 +76,4 @@ jobs:
 
     steps:
       - name: Stage 8 - All checks passed safe to merge
-        run: echo "All checks passed. PR is approved for merge."
+        run: echo "All checks passed. PR approved for merge."
