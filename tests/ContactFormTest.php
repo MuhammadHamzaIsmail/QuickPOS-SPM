@@ -8,7 +8,7 @@ class ContactFormTest extends TestCase
     public function testEmptyNameFails(): void
     {
         $name = '';
-        $this->assertEmpty($name, 'Name should be empty to trigger error');
+        $this->assertNotEmpty($name, 'Forcing failure for demo');   
     }
 
     // [POS-67] Empty email should fail
