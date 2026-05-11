@@ -29,7 +29,7 @@ class ContactFormTest extends TestCase
     // [POS-71] Valid email should pass
     public function testValidEmailPasses(): void
     {
-        $email = 'test@example.com';
+        $email = 'test';
         $isValid = filter_var($email, FILTER_VALIDATE_EMAIL);
         $this->assertNotFalse($isValid, 'Valid email should pass validation');
     }
