@@ -29,7 +29,7 @@ class ContactFormTest extends TestCase
     // [POS-71] Valid email should pass
     public function testValidEmailPasses(): void
     {
-        $email = 'test';
+        $email = 'ali@gmail.com';
         $isValid = filter_var($email, FILTER_VALIDATE_EMAIL);
         $this->assertNotFalse($isValid, 'Valid email should pass validation');
     }
@@ -38,7 +38,7 @@ class ContactFormTest extends TestCase
     public function testAllFieldsFilledSuccess(): void
     {
         $name    = 'John Doe';
-        $email   = 'john@example.com';
+        $email   = 'ali@gmail.com';
         $message = 'Hello I want to know more about QuickPOS.';
 
         $errors = [];
